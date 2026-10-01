@@ -1,0 +1,136 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "crowsi://network/control-receipts/v1",
+  "title": "Crowsi network control receipts v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "generated_at",
+    "external_actions",
+    "decision_count",
+    "receipt_count",
+    "decisions",
+    "receipts"
+  ],
+  "properties": {
+    "schema": { "const": "crowsi://network/control-receipts/v1" },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}\\.[0-9]{3}Z$"
+    },
+    "external_actions": { "const": false },
+    "decision_count": { "type": "integer", "minimum": 0 },
+    "receipt_count": { "type": "integer", "minimum": 0 },
+    "decisions": {
+      "type": "array",
+      "maxItems": 256,
+      "items": { "$ref": "#/$defs/decision" }
+    },
+    "receipts": {
+      "type": "array",
+      "maxItems": 256,
+      "items": { "$ref": "#/$defs/receipt" }
+    }
+  },
+  "$defs": {
+    "identifier": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9._-]{0,255}$"
+    },
+    "decision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "target_id",
+        "action",
+        "status",
+        "decided_at",
+        "expires_at",
+        "reason_code",
+        "requested_by",
+        "decided_by",
+        "matched_rule_id"
+      ],
+      "properties": {
+        "id": { "$ref": "#/$defs/identifier" },
+        "target_id": { "$ref": "#/$defs/identifier" },
+        "action": {
+          "enum": [
+            "quarantine-interface",
+            "restrict-egress",
+            "restore-egress",
+            "enter-maintenance",
+            "exit-maintenance"
+          ]
+        },
+        "status": { "enum": ["allowed-dry-run", "denied"] },
+        "decided_at": {
+          "type": "string",
+          "format": "date-time",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}\\.[0-9]{3}Z$"
+        },
+        "expires_at": {
+          "type": "string",
+          "format": "date-time",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}\\.[0-9]{3}Z$"
+        },
+        "reason_code": { "$ref": "#/$defs/identifier" },
+        "requested_by": { "$ref": "#/$defs/identifier" },
+        "decided_by": { "$ref": "#/$defs/identifier" },
+        "matched_rule_id": {
+          "oneOf": [
+            { "$ref": "#/$defs/identifier" },
+            { "type": "null" }
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": { "status": { "const": "allowed-dry-run" } },
+            "required": ["status"]
+          },
+          "then": {
+            "properties": {
+              "matched_rule_id": { "$ref": "#/$defs/identifier" }
+            }
+          },
+          "else": {
+            "properties": {
+              "matched_rule_id": { "type": "null" }
+            }
+          }
+        }
+      ]
+    },
+    "receipt": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "decision_id",
+        "target_id",
+        "status",
+        "recorded_at",
+        "result_code",
+        "changed_state"
+      ],
+      "properties": {
+        "id": { "$ref": "#/$defs/identifier" },
+        "decision_id": { "$ref": "#/$defs/identifier" },
+        "target_id": { "$ref": "#/$defs/identifier" },
+        "status": { "const": "recorded" },
+        "recorded_at": {
+          "type": "string",
+          "format": "date-time",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}\\.[0-9]{3}Z$"
+        },
+        "result_code": { "$ref": "#/$defs/identifier" },
+        "changed_state": { "const": false }
+      }
+    }
+  }
+}

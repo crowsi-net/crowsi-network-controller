@@ -1,0 +1,12 @@
+{
+  "schema": "crowsi://network/control-requests/v1",
+  "request_id": "request-sample-edge",
+  "idempotency_key": "idem-sample-edge",
+  "target_id": "sample-edge",
+  "action": "restrict-egress",
+  "scope": "example",
+  "mode": "dry-run",
+  "requested_by": "operator-sample",
+  "requested_at": "2026-08-01T00:00:00.000Z",
+  "expires_at": "2026-08-01T01:00:00.000Z"
+}

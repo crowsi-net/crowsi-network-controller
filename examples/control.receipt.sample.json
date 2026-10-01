@@ -1,0 +1,32 @@
+{
+  "schema": "crowsi://network/control-receipts/v1",
+  "generated_at": "2026-08-01T00:05:00.000Z",
+  "external_actions": false,
+  "decision_count": 1,
+  "receipt_count": 1,
+  "decisions": [
+    {
+      "id": "decision-idem-sample-edge",
+      "target_id": "sample-edge",
+      "action": "restrict-egress",
+      "status": "allowed-dry-run",
+      "decided_at": "2026-08-01T00:05:00.000Z",
+      "expires_at": "2026-08-01T01:00:00.000Z",
+      "reason_code": "allowlist-match",
+      "requested_by": "operator-sample",
+      "decided_by": "policy-sample",
+      "matched_rule_id": "rule-sample-edge"
+    }
+  ],
+  "receipts": [
+    {
+      "id": "receipt-idem-sample-edge",
+      "decision_id": "decision-idem-sample-edge",
+      "target_id": "sample-edge",
+      "status": "recorded",
+      "recorded_at": "2026-08-01T00:05:00.000Z",
+      "result_code": "allowlist-match",
+      "changed_state": false
+    }
+  ]
+}

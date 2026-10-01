@@ -1,0 +1,28 @@
+{
+  "schema": "crowsi://network/control-policies/v1",
+  "policy_id": "coela-enter-maintenance-local",
+  "enabled": true,
+  "rules": [
+    { "id": "enter-all", "target_id": "all-public-services", "action": "enter-maintenance", "scope": "public-maintenance", "requesters": ["coela"] },
+    { "id": "enter-allergy-hack", "target_id": "allergy-hack", "action": "enter-maintenance", "scope": "public-maintenance", "requesters": ["coela"] },
+    { "id": "enter-be2o", "target_id": "be2o-orchestration", "action": "enter-maintenance", "scope": "public-maintenance", "requesters": ["coela"] },
+    { "id": "enter-constillo", "target_id": "constillo", "action": "enter-maintenance", "scope": "public-maintenance", "requesters": ["coela"] },
+    { "id": "enter-crowsi", "target_id": "crowsi-network-engineering", "action": "enter-maintenance", "scope": "public-maintenance", "requesters": ["coela"] },
+    { "id": "enter-ecosystem-control", "target_id": "ecosystem-control", "action": "enter-maintenance", "scope": "public-maintenance", "requesters": ["coela"] },
+    { "id": "enter-hat-registry", "target_id": "hat-registry", "action": "enter-maintenance", "scope": "public-maintenance", "requesters": ["coela"] },
+    { "id": "enter-hat-spec", "target_id": "hat-spec", "action": "enter-maintenance", "scope": "public-maintenance", "requesters": ["coela"] },
+    { "id": "enter-hatter", "target_id": "hatter", "action": "enter-maintenance", "scope": "public-maintenance", "requesters": ["coela"] },
+    { "id": "enter-hibee", "target_id": "hibee-family-support", "action": "enter-maintenance", "scope": "public-maintenance", "requesters": ["coela"] },
+    { "id": "enter-hudu", "target_id": "hudu-cost-estimator", "action": "enter-maintenance", "scope": "public-maintenance", "requesters": ["coela"] },
+    { "id": "enter-incus", "target_id": "incus-japan", "action": "enter-maintenance", "scope": "public-maintenance", "requesters": ["coela"] },
+    { "id": "enter-kobara", "target_id": "kobara-bagel", "action": "enter-maintenance", "scope": "public-maintenance", "requesters": ["coela"] },
+    { "id": "enter-nerp", "target_id": "nerp-console", "action": "enter-maintenance", "scope": "public-maintenance", "requesters": ["coela"] },
+    { "id": "enter-nuxtjp", "target_id": "nuxtjp", "action": "enter-maintenance", "scope": "public-maintenance", "requesters": ["coela"] },
+    { "id": "enter-taiper", "target_id": "taiper-studio", "action": "enter-maintenance", "scope": "public-maintenance", "requesters": ["coela"] },
+    { "id": "enter-tamen8", "target_id": "tamen8", "action": "enter-maintenance", "scope": "public-maintenance", "requesters": ["coela"] },
+    { "id": "enter-tpar", "target_id": "tpar", "action": "enter-maintenance", "scope": "public-maintenance", "requesters": ["coela"] },
+    { "id": "enter-vpremises", "target_id": "vpremises", "action": "enter-maintenance", "scope": "public-maintenance", "requesters": ["coela"] },
+    { "id": "enter-web-signals", "target_id": "web-signals", "action": "enter-maintenance", "scope": "public-maintenance", "requesters": ["coela"] },
+    { "id": "enter-zixcel", "target_id": "zixcel", "action": "enter-maintenance", "scope": "public-maintenance", "requesters": ["coela"] }
+  ]
+}

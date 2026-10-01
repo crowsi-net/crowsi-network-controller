@@ -1,0 +1,14 @@
+{
+  "schema": "crowsi://network/control-policies/v1",
+  "policy_id": "policy-sample",
+  "enabled": true,
+  "rules": [
+    {
+      "id": "rule-sample-edge",
+      "target_id": "sample-edge",
+      "action": "restrict-egress",
+      "scope": "example",
+      "requesters": ["operator-sample"]
+    }
+  ]
+}

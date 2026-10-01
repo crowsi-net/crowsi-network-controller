@@ -1,0 +1,28 @@
+{
+  "schema": "crowsi://network/control-policies/v1",
+  "policy_id": "coela-exit-maintenance-local",
+  "enabled": true,
+  "rules": [
+    { "id": "exit-all", "target_id": "all-public-services", "action": "exit-maintenance", "scope": "public-maintenance", "requesters": ["coela"] },
+    { "id": "exit-allergy-hack", "target_id": "allergy-hack", "action": "exit-maintenance", "scope": "public-maintenance", "requesters": ["coela"] },
+    { "id": "exit-be2o", "target_id": "be2o-orchestration", "action": "exit-maintenance", "scope": "public-maintenance", "requesters": ["coela"] },
+    { "id": "exit-constillo", "target_id": "constillo", "action": "exit-maintenance", "scope": "public-maintenance", "requesters": ["coela"] },
+    { "id": "exit-crowsi", "target_id": "crowsi-network-engineering", "action": "exit-maintenance", "scope": "public-maintenance", "requesters": ["coela"] },
+    { "id": "exit-ecosystem-control", "target_id": "ecosystem-control", "action": "exit-maintenance", "scope": "public-maintenance", "requesters": ["coela"] },
+    { "id": "exit-hat-registry", "target_id": "hat-registry", "action": "exit-maintenance", "scope": "public-maintenance", "requesters": ["coela"] },
+    { "id": "exit-hat-spec", "target_id": "hat-spec", "action": "exit-maintenance", "scope": "public-maintenance", "requesters": ["coela"] },
+    { "id": "exit-hatter", "target_id": "hatter", "action": "exit-maintenance", "scope": "public-maintenance", "requesters": ["coela"] },
+    { "id": "exit-hibee", "target_id": "hibee-family-support", "action": "exit-maintenance", "scope": "public-maintenance", "requesters": ["coela"] },
+    { "id": "exit-hudu", "target_id": "hudu-cost-estimator", "action": "exit-maintenance", "scope": "public-maintenance", "requesters": ["coela"] },
+    { "id": "exit-incus", "target_id": "incus-japan", "action": "exit-maintenance", "scope": "public-maintenance", "requesters": ["coela"] },
+    { "id": "exit-kobara", "target_id": "kobara-bagel", "action": "exit-maintenance", "scope": "public-maintenance", "requesters": ["coela"] },
+    { "id": "exit-nerp", "target_id": "nerp-console", "action": "exit-maintenance", "scope": "public-maintenance", "requesters": ["coela"] },
+    { "id": "exit-nuxtjp", "target_id": "nuxtjp", "action": "exit-maintenance", "scope": "public-maintenance", "requesters": ["coela"] },
+    { "id": "exit-taiper", "target_id": "taiper-studio", "action": "exit-maintenance", "scope": "public-maintenance", "requesters": ["coela"] },
+    { "id": "exit-tamen8", "target_id": "tamen8", "action": "exit-maintenance", "scope": "public-maintenance", "requesters": ["coela"] },
+    { "id": "exit-tpar", "target_id": "tpar", "action": "exit-maintenance", "scope": "public-maintenance", "requesters": ["coela"] },
+    { "id": "exit-vpremises", "target_id": "vpremises", "action": "exit-maintenance", "scope": "public-maintenance", "requesters": ["coela"] },
+    { "id": "exit-web-signals", "target_id": "web-signals", "action": "exit-maintenance", "scope": "public-maintenance", "requesters": ["coela"] },
+    { "id": "exit-zixcel", "target_id": "zixcel", "action": "exit-maintenance", "scope": "public-maintenance", "requesters": ["coela"] }
+  ]
+}
