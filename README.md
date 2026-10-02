@@ -1,13 +1,27 @@
-# Crowsi Network Controller
+# crowsi-network-controller
 
-`crowsi-network-controller` evaluates proposed network controls without
-changing the operating system or contacting a network device. It is a
-policy-first boundary: every request is denied unless one enabled rule exactly
-matches its target, action, scope, and requester.
+Evaluate a proposed network change against a deny-by-default policy before applying it.
 
-This repository deliberately ships no firewall, route, interface, or device
-mutation adapter. Every report declares `external_actions: false`, and every
-audit receipt declares `changed_state: false`.
+## What you can do
+
+- Validate a network-change request.
+- Explain the policy result using a bounded response.
+
+## Current scope
+
+The current command evaluates requests. It does not mutate operating-system or cloud networking.
+
+Package distribution is not activated by this documentation. Use the checked-in source and the declared dependency versions; published availability must be verified separately.
+
+## Getting started
+
+Install Rust 1.97 or newer and make the declared dependencies available. Use the configured private registry when a dependency is not distributed publicly. Run from this repository:
+
+```sh
+cargo test --locked
+```
+
+## Examples and interface details
 
 ## Commands
 
@@ -22,29 +36,6 @@ input and time. `evaluate` reads closed, size-bounded JSON documents and uses
 the current UTC execution time when checking the request window. Input paths
 must resolve to regular files.
 
-## Policy behavior
-
-- Requests must use `mode: "dry-run"`.
-- Public-edge maintenance actions produce policy evidence only; they never
-  publish a status file, deploy a site, or change CDN/DNS state.
-- Request authorization windows cannot exceed one hour.
-- Rules are exact allowlist entries; wildcard targets and scopes do not exist.
-- Requester identities, targets, actions, and scopes must all match.
-- Unknown fields and non-identifier values are rejected.
-- An idempotency key can refer to only one request and policy.
-- Replays compare the full request and policy; conflicts fail closed.
-- Missing, disabled, expired, or conflicting requests are denied.
-- Allowed decisions include the exact matched rule identifier as audit evidence.
-
-`PolicyEvaluator` uses an in-memory ledger suitable for embedding and tests.
-Policies accept at most 32 rules and 32 requesters per rule. Expired entries
-are purged before evaluation, and the ledger fails closed at 256 live entries.
-A separate 256-entry conflict ledger preserves immutable conflict replays and
-uses process-unique bounded receipt IDs. Evaluation time cannot move backwards.
-A host that spans process restarts must provide serialized
-request processing around a durable idempotency boundary before invoking this
-library. It must still keep mutation execution outside this repository.
-
 ## UI contract
 
 Nuxt consumers depend only on the schemas in `schemas/`. Incompatible changes
@@ -56,3 +47,11 @@ invariants before a report can be re-serialized.
 Version 1 receipts identify the policy and matched rule but are not durable
 signed audit artifacts. A future execution boundary must add a signed policy
 revision digest under a new contract URI before enabling mutation.
+
+## Documentation and source
+
+[Interface reference](docs/interface-reference.md)
+
+[Usage guide](docs/getting-started.md)
+
+[Examples](examples) · [Schemas](schemas) · [Implementation and public interfaces](src) · [Verification cases](tests) · [Contributing](CONTRIBUTING.md) · [Security reporting](SECURITY.md) · [License](LICENSE) · [Attribution notices](NOTICE)
