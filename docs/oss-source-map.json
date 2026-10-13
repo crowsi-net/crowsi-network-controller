@@ -1,0 +1,120 @@
+{
+  "repository": "crowsi-net/crowsi-network-controller",
+  "purpose": "Evaluate a proposed network change against a deny-by-default policy before applying it.",
+  "responsibility_boundary": "Own the named security/transport mechanism and its explicit trust boundary. Product account/storage/UI composition belongs to the consumer. Tests must not substitute declarations for enforced authority or live environment acceptance.",
+  "packages": [
+    {
+      "manifest": "Cargo.toml",
+      "package": "crowsi-network-controller",
+      "ecosystem": "rust",
+      "description": "Deny-by-default dry-run network control evaluator for Crowsi",
+      "interfaces": {
+        "lib": "src/lib.rs",
+        "features": {},
+        "bins": [],
+        "public_modules": [],
+        "public_reexports": [
+          "evaluator::{MAX_CONFLICT_ENTRIES, MAX_LEDGER_ENTRIES, PolicyEvaluator}",
+          "input::{MAX_DOCUMENT_BYTES, parse_policy_json, parse_request_json}",
+          "model::{\n    AllowRuleV1, CONTROL_POLICIES_SCHEMA_V1, CONTROL_RECEIPTS_SCHEMA_V1,\n    CONTROL_REQUESTS_SCHEMA_V1, ControlActionV1, ControlDecisionV1, ControlModeV1, ControlPolicyV1,\n    ControlReceiptV1, ControlReportV1, ControlRequestV1, DecisionStatusV1, ReceiptStatusV1,\n}",
+          "validation::{\n    MAX_POLICY_RULES, MAX_REQUEST_WINDOW_MILLIS, MAX_RULE_REQUESTERS, Validate, ValidationError,\n}"
+        ],
+        "implicit_bins": []
+      },
+      "declared_commands": {}
+    }
+  ],
+  "schema_definitions": [
+    "schemas/network-control-policy-v1.schema.json",
+    "schemas/network-control-receipts-v1.schema.json",
+    "schemas/network-control-request-v1.schema.json"
+  ],
+  "test_sources": [
+    "src/main.rs",
+    "src/output_validation.rs",
+    "src/timestamp.rs",
+    "src/timestamp_math.rs",
+    "src/utc.rs",
+    "src/validation.rs",
+    "tests/cli.rs",
+    "tests/contracts.rs",
+    "tests/evaluator.rs",
+    "tests/limits.rs",
+    "tests/maintenance.rs"
+  ],
+  "example_sources": [
+    "examples/control.policy.json",
+    "examples/control.receipt.sample.json",
+    "examples/control.request.json",
+    "examples/sample.rs"
+  ],
+  "workflow_definitions": [
+    {
+      "path": ".github/workflows/ci.yml",
+      "jobs": [
+        {
+          "job": "test",
+          "condition": null,
+          "runs_on": "ubuntu-latest",
+          "steps": [
+            {
+              "name": null,
+              "run": null,
+              "uses": "actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+              "condition": null
+            },
+            {
+              "name": "Install declared Rust toolchain",
+              "run": "rustup toolchain install 1.97 --profile minimal",
+              "uses": null,
+              "condition": null
+            },
+            {
+              "name": "Test default features",
+              "run": "cargo +1.97 test --locked",
+              "uses": null,
+              "condition": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": ".github/workflows/oss-policy.yml",
+      "jobs": [
+        {
+          "job": "repository-policy",
+          "condition": null,
+          "runs_on": "ubuntu-latest",
+          "steps": [
+            {
+              "name": null,
+              "run": null,
+              "uses": "actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+              "condition": null
+            },
+            {
+              "name": "Verify repository policy",
+              "run": "python3 .github/oss-policy-check.py",
+              "uses": null,
+              "condition": null
+            },
+            {
+              "name": "Verify policy regression tests",
+              "run": "cd .github && python3 -m unittest discover -s policy-tests",
+              "uses": null,
+              "condition": null
+            },
+            {
+              "name": "Check policy types",
+              "run": "python3 -m venv \"$RUNNER_TEMP/policy-types\"\n\"$RUNNER_TEMP/policy-types/bin/pip\" install -r .github/policy/requirements.txt\n\"$RUNNER_TEMP/policy-types/bin/mypy\" --strict .github/policy .github/oss-policy-check.py .github/policy-tests\n",
+              "uses": null,
+              "condition": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "evidence_policy": "Declarations and source paths are not proof of an executed acceptance. Exact CI head and result are recorded separately. No live accounts or production acceptance is inferred."
+}
